@@ -32,7 +32,7 @@ namespace SalesWeb31
                     options.UseSqlServer(Configuration.GetConnectionString("SalesWeb31Context")));
 
             services.AddScoped<SeedingService>();
-            services.AddSingleton<SellerService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
