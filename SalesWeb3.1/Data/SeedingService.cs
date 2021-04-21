@@ -19,15 +19,15 @@ namespace SalesWeb31.Data
 
         public void Seed()
         {
-            if(_context.Departments.Any() || _context.Seller.Any() || _context.SalesRecord.Any())//verifica se alguma dessas tabelas tem informação
+            if(_context.Department.Any() || _context.Seller.Any() || _context.SalesRecord.Any())//verifica se alguma dessas tabelas tem informação
             {
                 return;// já tem alguma coisa nas tabelas
             }
 
-            Departments d1 = new Departments( "Computers");
-            Departments d2 = new Departments( "Electronics");
-            Departments d3 = new Departments( "Fashion");
-            Departments d4 = new Departments( "Books");
+            Department d1 = new Department( "Computers");
+            Department d2 = new Department( "Electronics");
+            Department d3 = new Department( "Fashion");
+            Department d4 = new Department( "Books");
 
             Seller s1 = new Seller("Bob Brown", "bob@gmail.com", new DateTime(1998, 4, 21), 1000.0, d1);
             Seller s2 = new Seller("Maria Green", "maria@gmail.com", new DateTime(1979, 12, 31), 3500.0, d2);
@@ -67,7 +67,7 @@ namespace SalesWeb31.Data
             SalesRecord r29 = new SalesRecord( new DateTime(2018, 10, 23), 12000.0, SaleStatus.Billed, s5);
             SalesRecord r30 = new SalesRecord( new DateTime(2018, 10, 12), 5000.0, SaleStatus.Billed, s2);
 
-            _context.Departments.AddRange(d1, d2, d3, d4);
+            _context.Department.AddRange(d1, d2, d3, d4);
 
             _context.Seller.AddRange(s1, s2, s3, s4, s5, s6);
 
@@ -84,10 +84,4 @@ namespace SalesWeb31.Data
         }
     }
 
-    internal class Department : Departments
-    {
-        public Department(string name) : base( name)
-        {
-        }
-    }
 }

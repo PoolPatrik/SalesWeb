@@ -10,8 +10,8 @@ using SalesWeb31.Data;
 namespace SalesWeb31.Migrations
 {
     [DbContext(typeof(SalesWeb31Context))]
-    [Migration("20210407002704_OutrasEntidades")]
-    partial class OutrasEntidades
+    [Migration("20210416142513_DepartmentForeignKey")]
+    partial class DepartmentForeignKey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,7 @@ namespace SalesWeb31.Migrations
                     b.ToTable("Department");
                 });
 
-            modelBuilder.Entity("SalesWeb31.Models.SaleRecord", b =>
+            modelBuilder.Entity("SalesWeb31.Models.SalesRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace SalesWeb31.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -91,7 +91,7 @@ namespace SalesWeb31.Migrations
                     b.ToTable("Seller");
                 });
 
-            modelBuilder.Entity("SalesWeb31.Models.SaleRecord", b =>
+            modelBuilder.Entity("SalesWeb31.Models.SalesRecord", b =>
                 {
                     b.HasOne("SalesWeb31.Models.Seller", "Seller")
                         .WithMany("Sales")
@@ -102,7 +102,9 @@ namespace SalesWeb31.Migrations
                 {
                     b.HasOne("SalesWeb31.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -33,6 +33,7 @@ namespace SalesWeb31
 
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<Departmentervice>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
