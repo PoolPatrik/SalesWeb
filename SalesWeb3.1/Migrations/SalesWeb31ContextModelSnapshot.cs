@@ -19,7 +19,7 @@ namespace SalesWeb31.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SalesWeb31.Models.Departments", b =>
+            modelBuilder.Entity("SalesWeb31.Models.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,10 +31,10 @@ namespace SalesWeb31.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Department");
                 });
 
-            modelBuilder.Entity("SalesWeb31.Models.SaleRecord", b =>
+            modelBuilder.Entity("SalesWeb31.Models.SalesRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +73,7 @@ namespace SalesWeb31.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -89,7 +89,7 @@ namespace SalesWeb31.Migrations
                     b.ToTable("Seller");
                 });
 
-            modelBuilder.Entity("SalesWeb31.Models.SaleRecord", b =>
+            modelBuilder.Entity("SalesWeb31.Models.SalesRecord", b =>
                 {
                     b.HasOne("SalesWeb31.Models.Seller", "Seller")
                         .WithMany("Sales")
@@ -98,9 +98,11 @@ namespace SalesWeb31.Migrations
 
             modelBuilder.Entity("SalesWeb31.Models.Seller", b =>
                 {
-                    b.HasOne("SalesWeb31.Models.Departments", "Department")
+                    b.HasOne("SalesWeb31.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

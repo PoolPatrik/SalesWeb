@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SalesWeb31.Models;
+using SalesWeb31.Models.ViewModels;
 using SalesWeb31.Services;
 
 namespace SalesWeb31.Controllers
@@ -11,10 +12,12 @@ namespace SalesWeb31.Controllers
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
+        private readonly Departmentervice _departmentervice;
 
-        public SellersController(SellerService sellerService)
+        public SellersController(SellerService sellerService, Departmentervice departmentervice)
         {
             _sellerService = sellerService;
+            _departmentervice = departmentervice;
         }
         public IActionResult Index()
         {
@@ -24,7 +27,9 @@ namespace SalesWeb31.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departements = _departmentervice.FindAll();
+            var viewModel = new SellerFormViewModel { Departments = departements };
+            return View(viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
