@@ -76,5 +76,20 @@ namespace SalesWeb31.Controllers
 
             return View(obj);
         }
+
+        public IActionResult Edit (int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+        }
     }
 }

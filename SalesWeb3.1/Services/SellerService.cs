@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SalesWeb31.Services.exception;
 
 namespace SalesWeb31.Services
 {
@@ -40,6 +41,25 @@ namespace SalesWeb31.Services
             var obj= _context.Seller.Find(id);
             _context.Seller.Remove(obj);
             _context.SaveChanges();
+
+        }
+
+        public void Update(Seller obj)
+        {
+            if(!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id não encontrado");
+
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch(DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
 
         }
     }
