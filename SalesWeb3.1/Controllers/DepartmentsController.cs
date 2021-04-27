@@ -40,7 +40,7 @@ namespace SalesWeb31.Controllers
                 return NotFound();
             }
 
-            return View(departments);
+                return View(departments);
         }
 
         // GET: Departments/Create
@@ -70,8 +70,7 @@ namespace SalesWeb31.Controllers
         {
             if (id == null)
             {
-                return NotFound();
-            }
+NotFound();           }
 
             var departments = await _context.Department.FindAsync(id);
             if (departments == null)
